@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const student = require("../models/student.models");
+const student = require("../database/models/student.models");
 const responses = require("../utils/response");
 const generateResetPin = require("../utils/generateResetPin")
 const sendMail = require("../utils/sendMail");
