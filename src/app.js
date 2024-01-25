@@ -8,11 +8,19 @@ dotenv.config();
 import connectDb from './database/connects/connect.js';
 import notFound from './database/connects/connect.js'
 import AuthRouter from './router/auth-router.js';
+const studentRoutes = require("./router/student.routes.js");
+// const connectDB = require("./configs/database.js");
 
 
 const app = express();
 app.use(express.json());
-app.use(cors())
+
+const corsOptions = {
+    origin: '*', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, 
+  };
+  app.use(cors(corsOptions));
 
 app.get('/', async (req, res) => {
     res.status(200).send('Welcome to VeriSynth, a Digital certification system');
@@ -21,9 +29,11 @@ app.get('/', async (req, res) => {
 
 app.use('api/v1/dcs', AuthRouter)
 app.use(notFound)
+app.use("/student", studentRoutes);
 
 const port = process.env.PORT || '5454';
 const url = process.env.MONGO_URL || '';
+// connectDB(process.env.MONGO_URI)
 
 const start = async function () {
 	try{
