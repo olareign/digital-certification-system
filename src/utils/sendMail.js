@@ -65,6 +65,80 @@ const sendForgotPasswordMail = (mailPayload) => {
       console.error(error);
     });
 };
+
+
+const sendCredential = (mailPayload) => {
+  const textMail = `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 20px;
+}
+
+.content {
+    margin: 20px;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 20px;
+}
+  </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Congratulations, ${mailPayload.details.fullName}!</h1>
+    </div>
+    <div class="content">
+        <p>We are thrilled to inform you that you have successfully been issued a certificate.</p>
+        <p><strong>Issued by:</strong></p>
+        <p><strong>Certificate Details:</strong></p>
+        <ul>
+          <li>Certificate ID: ${mailPayload.details.certificate_ID}</li>
+          <li>Recipient Name: ${mailPayload.details.fullName} </li>
+          <li>Recipient ID: ${mailPayload.details.recipient_ID} </li>
+          <li>Recipient Email: ${mailPayload.details.recipient_email} </li>
+          <li>Degree Name: ${mailPayload.details.degreeName} </li>
+          <li>Degree Type: ${mailPayload.details.degreeType} </li>
+          <li>Awarded Date: ${mailPayload.details.awarded_date} </li>
+          <li>Issuance Date: ${mailPayload.details.issuance_date} </li>
+          <li>Expiration Date: ${mailPayload.details.expiration_date} </li>
+        </ul>
+        <p>Your hard work and dedication have paid off and we are confident that you will achieve great things in your future endeavors.</p>
+    </div>
+    <div class="footer">
+        <p>Best Regards,</p>
+        <p>${mailPayload.issuer.institution_name}</p>
+        <p>${mailPayload.issuer.handler}</p>
+    </div>
+</body>
+</html>
+`;
+  const msg = {
+    to: mailPayload.to,
+    from: 'madukaifeol@gmail.com', // Change to your verified sender
+    subject: mailPayload.subject,
+    html: textMail,
+  };
+  sgMail
+    .send(msg)
+    .then((response) => {
+      console.log(response[0].statusCode);
+      console.log(response[0].headers);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 module.exports = {
   sendForgotPasswordMail,
+  sendCredential
 };

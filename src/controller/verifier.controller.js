@@ -1,8 +1,11 @@
-const studentServices = require("../services/student.services");
+
+const { BadRequestError } = require('../errors');
+
+const verifierServices = require("../services/verifier.services");
 
 const signUp = async (req, res) => {
   try {
-    const data = await studentServices.signUp(req.body);
+    const data = await verifierServices.Register(req.body);
     if (!data) {
       return res.status(500).json({
         status: "failure",
@@ -20,7 +23,7 @@ const signUp = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const data = await studentServices.login(req.body);
+    const data = await verifierServices.login(req.body);
 
     return res.status(data.statusCode).json(data);
   } catch (error) {
@@ -33,7 +36,7 @@ const login = async (req, res) => {
 
 const forgotPasswordController = async (req, res) => {
   try {
-    const data = await studentServices.forgotPassword(req.body);
+    const data = await verifierServices.ForgotPassword(req.body);
     return res.status(data.statusCode).json(data);
   } catch (error) {
     return res.status(500).json({
@@ -45,7 +48,7 @@ const forgotPasswordController = async (req, res) => {
 
 const resetPasswordController = async (req, res) => {
   try {
-    const data = await studentServices.resetPassword(req.body);
+    const data = await verifierServices.ResetPassword(req.body);
     return res.status(data.statusCode).json(data);
   } catch (error) {
     return res.status(500).json({
@@ -54,10 +57,6 @@ const resetPasswordController = async (req, res) => {
     });
   }
 };
-
-
-
-
 
 
 module.exports = {

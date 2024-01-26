@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const student = require("../src/models/student.models");
+const { CustomAPIError, UnauthorizeError } = require("../errors");
 
   
 
@@ -26,6 +27,14 @@ async function authenticate(req, res, next) {
     }
 }
 
+async function authorization(req, res, next){
+    if(!roles.includes(req.user.role)){
+        throw new UnauthorizeError('Unauthorized Access to this route')
+    }
+    next()
+}
+
 module.exports = {
-authenticate
+    authenticate,
+    authorization
 }

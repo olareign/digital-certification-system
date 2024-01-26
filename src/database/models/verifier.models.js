@@ -1,9 +1,8 @@
-
 const Mongoose = require("mongoose");
 const { uuid } = require("../../utils/hashing.modules");
 
-const studentSchema = Mongoose.Schema({
-  userId: {
+const verifierSchema = Mongoose.Schema({
+  verifier_id: {
     type: String,
     required: true,
     default: uuid()
@@ -23,19 +22,19 @@ const studentSchema = Mongoose.Schema({
         return `${this.firstName} ${this.lastName}`
       }
   },
-  email: {
+  email:{
     type: String,
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-    required: true
-  },
   role: {
     type: String,
     required: true,
-    default: 'student'
+    default: 'verifier',
+  },
+  password:{
+    type: String,
+    required: true
   },
   resetPin: {
     type: Number
@@ -47,4 +46,5 @@ const studentSchema = Mongoose.Schema({
 }, {
   timestamps: true
 });
-module.exports = Mongoose.model("Students", studentSchema);
+
+module.exports = Mongoose.model("Verifier", verifierSchema);

@@ -25,7 +25,6 @@ const signUp = async (payload) => {
   );
 };
 
-
 const login = async (payload) => {
   const foundStudent = await student.findOne({ email: payload.email });
 
@@ -81,7 +80,6 @@ const forgotPassword = async (payload) => {
 
   return responses.buildSuccessResponse("Reset Pin sent successfully", 200, updatedStudent);
 };
-
 
 const resetPassword = async (payload) => {
   const studentAndPin = await student.findOne({
