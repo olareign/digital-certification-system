@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const helmet = require("helmet");
+const morgan = require('morgan')
 const cors = require('cors');
 const statusCode = require('http-status-codes');
 dotenv.config();
@@ -19,6 +20,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
+app.use(morgan('tiny'));
 
 const corsOptions = {
     origin: '*',

@@ -58,6 +58,16 @@ const resetPasswordController = async (req, res) => {
   }
 };
 
+const verifyCertificate = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    return res.status(500).json({
+      status: "failure",
+      message: error?.message,
+    });
+  }
+}
 
 module.exports = {
   signUp,
