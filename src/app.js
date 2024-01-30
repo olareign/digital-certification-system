@@ -1,10 +1,12 @@
-const express = require('express');
 const dotenv = require('dotenv');
+dotenv.config();
+
+const express = require('express');
 const helmet = require("helmet");
 const morgan = require('morgan')
 const cors = require('cors');
 const statusCode = require('http-status-codes');
-dotenv.config();
+const axios = require('axios')
 
 const connectDb = require('./database/connects/connect.js');
 
@@ -42,11 +44,11 @@ app.use(errorHandlerMiddleware)
 app.use(notFound);
 
 const port = process.env.PORT || '5454';
-const url = process.env.MONGO_URL || '';
+const mongo_uri = process.env.MONGO_URL || '';
 
 const start = async function () {
     try {
-        await connectDb(url);
+        await connectDb(mongo_uri);
         app.listen(port, () => {
             console.log(`Server running at port : ${port}...`);
         });

@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-const connectDB = async (mongo_uri) => {
+const connectDB = async (uri) => {
     try {
-        const conn = await mongoose.connect(mongo_uri);
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
+        console.log('Before connection: ', uri);
+        const conn = await mongoose.createConnection(uri);
+        // console.log(`MongoDB Connected: ${conn.connection.host}`);
+        console.log(`MongoDB Connected...`);
     } catch (error) {
         console.error(error)
         process.exit(1)

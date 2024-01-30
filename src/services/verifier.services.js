@@ -1,14 +1,15 @@
 dotenv = require("dotenv");
+dotenv.config();
+
 const verifier = require("../database/models/verifier.models");
 const responses = require("../utils/response");
 
 const { NotFoundError, BadRequestError } = require("../errors");
 const sendMail = require("../utils/sendMail");
-
 const generateResetPin = require("../utils/generateResetPin");
 const { hashingModule, compareValue } = require("../utils/hashing.modules");
 const { createToken, decodeToken, tokenPayload } = require("../utils/jwt");
-dotenv.config();
+
 
 
 const Register = async (payload) => {
@@ -99,6 +100,8 @@ const ResetPassword = async (payload) => {
   
     return responses.buildSuccessResponse("Password Reset Successful", 200, updatedUser);
 };
+
+
   
 module.exports = {
     Register,

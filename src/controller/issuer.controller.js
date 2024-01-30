@@ -1,9 +1,9 @@
 
 const { BadRequestError } = require('../errors');
 const issuer = require('../database/models/school.models')
-
 const IssuerServices = require("../services/issuer.services");
 const CredentialsServices = require("../services/credentials.service");
+const { Security } = require("../utils/helper");
 
 const signUpIssuer = async (req, res) => {
   try {
@@ -81,11 +81,28 @@ const issueCertificate = async (req, res) => {
 }
 
 
+const createLog = async function(req, res){
+  try {
+    const did = new Security()
+    const response = did.createDID()
+    console.log(response);
+    return responses.buildSuccessResponse(
+      "Credentials DID Created Successful",
+      201,
+      response
+    );
+  } catch (error) {
+    throw error
+  }
+}
+
+
 module.exports = {
   signUpIssuer,
   loginIssuer,
   forgotPasswordController,
   resetPasswordController,
-  issueCertificate
+  issueCertificate,
+  createLog
 };
 

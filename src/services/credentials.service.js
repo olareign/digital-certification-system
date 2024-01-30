@@ -1,11 +1,12 @@
 dotenv = require("dotenv");
+dotenv.config();
+
 const credential = require("../database/models/cerificate.models");
 const responses = require("../utils/response");
-
-const { NotFoundError, BadRequestError } = require("../errors");
 const sendMail = require("../utils/sendMail");
+const { NotFoundError, BadRequestError } = require("../errors");
 
-dotenv.config();
+
 
 
 const Create = async (payload, sender) => {
@@ -46,6 +47,9 @@ const GetAll = async (payload) => {
   
   // return responses.buildSuccessResponse("Password Reset Successful", 200, updatedUser);
 };
+
+
+
 
 module.exports = {
     Create,
